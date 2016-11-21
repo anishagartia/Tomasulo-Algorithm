@@ -53,15 +53,15 @@ The Result Buses:
 Input Trace format:
 The input traces will be given in the form:
 
-(address) (function unit type) (dest reg #) (src1 reg #) (src2 reg#)
-(address) (function unit type) (dest reg #) (src1 reg #) (src2 reg#) 
+(address) (function unit type) (dest reg #) (src1 reg #) (src2 reg#)   
+(address) (function unit type) (dest reg #) (src1 reg #) (src2 reg#)    
 ...
 
 Where
-(address) is the address of the instruction (in hex)
-(function unit type) is either "0", "1" or "2"
-(dest reg #), (src1 reg#) and (src2 reg #) are integers in the range [0..127]
-Note: If any reg # is -1, then there is no register for that part of the instruction (e.g., a branch instruction has -1 for its (dest reg #))
+(address) is the address of the instruction (in hex)   
+(function unit type) is either "0", "1" or "2"   
+(dest reg #), (src1 reg#) and (src2 reg #) are integers in the range [0..127]    
+Note: If any reg # is -1, then there is no register for that part of the instruction (e.g., a branch instruction has -1 for its (dest reg #))    
 
 
 ## Output:
