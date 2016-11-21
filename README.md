@@ -40,6 +40,17 @@ The Result Buses:
 4. The order of result bus broadcasts is as follows:
   - Within any given cycle, earlier tags get priority over later tags.
   - Earlier cycles with pending broadcasts get priority over later cycles.
+  
+  
+Variation of Parameters:
+
+1. Number of FUs of each type (k0, k1, k2) of either 1 or 2 between 1 to 3 units each.
+2. The number of result buses, R. This should never exceed the total number of FUs.
+3. Fetch rate, F = 4 or 8
+4. Exception rate, E = 333
+5. Use both repair schemes
+
+Based on the results, the least amount of hardware is selected (as measured by total number of FUs (k0+k1+k2) and result buses (R)) for each benchmark trace that provides nearly (>95%) of the highest value for retired IPC. 
 
 
 ## Breakdown of code:
@@ -57,11 +68,20 @@ The input traces will be given in the form:
 (address) (function unit type) (dest reg #) (src1 reg #) (src2 reg#)    
 ...
 
-Where
+Where   
 (address) is the address of the instruction (in hex)   
 (function unit type) is either "0", "1" or "2"   
 (dest reg #), (src1 reg#) and (src2 reg #) are integers in the range [0..127]    
 Note: If any reg # is -1, then there is no register for that part of the instruction (e.g., a branch instruction has -1 for its (dest reg #))    
+
+The command line parameters are as follows:
+
+1. R – Result buses
+2. F – Fetch rate (instructions per cycle)
+3. J – Number of k0 function units
+4. K – Number of k1 function units
+5. L – Number of k2 function units
+6. trace_file – Path name to the trace file
 
 
 ## Output:
@@ -74,4 +94,16 @@ For each trace, the output contains 2 files:
 2. A log file, which contains the cycle-by-cycle behavior of the machine.
 
 
+The simulator outputs the following statistics after completion of the experimental run:
 
+1. Total number of instructions in the trace
+2. Average dispatch queue size
+3. Maximum dispatch queue size
+4. Average number of instructions fired per cycle
+5. Average number of instructions retired per cycle (IPC)
+6. Total run time (cycles)
+7. Total number of register file hits (NEW)
+8. Total number of ROB hits (NEW)
+9. Total number of exceptions (NEW)
+10. Total number of backup copies from B1 to B2 (NEW)
+11. Total number of flushed instructions: any non-retired instruction that was dispatched some time before the exception occurred.
